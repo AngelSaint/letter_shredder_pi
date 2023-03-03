@@ -11,4 +11,15 @@ Me and Angelo spent the weekend developing this dimensioned drawing so we can ha
 
 This week was spent mainly sourcing parts for our design. We are heavily relying on amazon to ship us items in two days or less for the more common parts. We are currently looking at Mouser and Digikey for smaller, more obscure parts, but we are trying to limit that as much as possible. Also, we are still writing out our design document. There are lots of small sections that require figures we don’t have. 
 
+## 2/27 - Week 3
+
+We had our design review this week. We brought our design and images to the table, and were largely okay’d. We had to make some changes to the document, such as adding a requirements and verification section for each of the subsystems. Other than that, work was ready to start for the project. The first step was the PCB design. Using KiCad and Google, I mocked up an example schematic that would work for our design. Here is the schematic:
+
+![First Schematic Drawing](sahas_images/image6.png)
+
+The PCB has not been routed yet, but the design is there. We have not been able to test the schematic on the breadboard as we do not have a lot of the necessary components to build the circuit.
+
+
+
+
 
