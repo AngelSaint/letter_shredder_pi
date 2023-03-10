@@ -19,6 +19,11 @@ We had our design review this week. We brought our design and images to the tabl
 
 The PCB has not been routed yet, but the design is there. We have not been able to test the schematic on the breadboard as we do not have a lot of the necessary components to build the circuit.
 
+## 3/6 - Week 4
+
+This week there was a lot of back and forth on the design with the machine shop. As the deadline for revisions to the work was Friday and right before break, we were scrambling to make sure the machine shop has everything they needed from us. We supplied the dimensioned drawing, with some small changes, and brought them some example parts so they could start development over the weekend. Also, this week, our first PCB was ordered (pictured). We still have not had a chance to test the circuit on a breadboard so this is just a shot in the dark.
+
+![First PCB Drawing](sahas_images/image15.png)
 
 
 
