@@ -26,5 +26,15 @@ This week there was a lot of back and forth on the design with the machine shop.
 ![First PCB Drawing](sahas_images/image15.png)
 
 
+## 3/20 - Week 5
+
+Over break, no progress was made on the side of our team. We checked in with the machine shop, and progress has started on the design, but it is far from done. This week, we still haven’t received the PCB so progress was made on other subsystems. Work for the OCR subsystem has begun. I created a jupyter notebook and python environment with all the necessary libraries. I am able to take pictures with a USB webcam, and process them before sending to pytesseract OCR. This is the temporary code for the image processing pipeline.
+
+![OCR Pipeline](sahas_images/image16.png)
+
+First the image is converted to grayscale to reduce the amount of data by a factor of 3. Then, the image is cut to size based on where we expect the text to be. Next, A threshold is applied to convert the grayscale images to completely white or black pixels. Finally, a deskew is applied to make sure the lines are properly horizontal for the OCR to recognize. I played around with a few more filters, such as dilate and erode, but the improvement was small. Rather than leave it in with little idea of what it is doing, I decided to remove dilate/erode from the pipeline. I was following instructions from this link: Optical Character Recognition | OCR Text Recognition (analyticsvidhya.com)
+
+
+
 
 
