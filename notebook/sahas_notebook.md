@@ -34,6 +34,20 @@ Over break, no progress was made on the side of our team. We checked in with the
 
 First the image is converted to grayscale to reduce the amount of data by a factor of 3. Then, the image is cut to size based on where we expect the text to be. Next, A threshold is applied to convert the grayscale images to completely white or black pixels. Finally, a deskew is applied to make sure the lines are properly horizontal for the OCR to recognize. I played around with a few more filters, such as dilate and erode, but the improvement was small. Rather than leave it in with little idea of what it is doing, I decided to remove dilate/erode from the pipeline. I was following instructions from this link: Optical Character Recognition | OCR Text Recognition (analyticsvidhya.com)
 
+## 3/27 - Week 6
+
+This week, we received our PCB from China! After soldering the basic components, we found a few issues with the design. First of all, the programmer was wired incorrectly. MISO and MOSI were crossed, meaning we could not burn a bootloader to the ATMega chip without attaching to pins directly. This was a big mistake. As a result, we ditched the design of our first PCB and are building the circuit on a breadboard
+
+![Breadboard](sahas_images/image13.png)
+
+The circuit is quite simple. There are three sections. First is the programmer to the left. This is where the 6 pin AVRISP programmer can be connected so that the microcontroller can be programmed. The second section is the ATMega and supporting circuitry. This includes the crystal oscillator which is necessary for the ATMega to program. Lastly, the servo motors are connected on the last section. We added capacitors to smooth the voltage line as servos draw power quickly. Occasionally, when too many servos moved at once, the power spike is so large that it causes the ATMega to shut off. This needs to be mitigated in the design.
+
+We are currently looking into powering everything using a single 5V 8A power supply. This would supply ample current to all the components on the board running at once, and therefore be able to supply the motors with the instantaneous current they need.
+
+Design work on the next PCB has started. We have incorporated the circuit on the breadboard into the new circuit design. PCB routing is yet to be done, as the deadline for ordering is next week Wednesday. Here is the new redesigned circuit.
+
+
+![New Circuit](sahas_images/image19.png)
 
 
 
