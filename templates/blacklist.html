@@ -14,15 +14,36 @@
         <th>Box 2</th>
         <th>Box 3</th>
       </tr>
-      {% for row in results %}
+      {% for black in blacklist %}
       <tr>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[1] }}</td>
-        <td>{{ row[2] }}</td>
-        <td>{{ row[3] }}</td>
-        <td>{{ row[4] }}</td>
+        <td>{{ black[0] }}</td>
+        <td>{{ black[1] }}</td>
+        <td>{{ black[2] }}</td>
+        <td>{{ black[3] }}</td>
+        <td>{{ black[4] }}</td>
+        <td>
+          <form action="/remove_blacklist" method="post"><input type="submit" value="Remove BlackList">
+            <input type="hidden" id="remove_name" name="remove_name" value="{{ black[1] }}">
+          </form>
+        </td>
       </tr>
       {% endfor %}
+
     </table>
+      <h2>Add BlackList</h2>
+    <form action="/add_blacklist" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <label for="box1">Box1:</label>
+      <input type="checkbox" id="box1" name="box1" value="TRUE">
+      <label for="box2">Box2:</label>
+      <input type="checkbox" id="box2" name="box2" value="TRUE">
+      <label for="box3">Box3:</label>
+      <input type="checkbox" id="box3" name="box3" value="TRUE"><br><br>
+      <input type="submit" value="Add BlackList">
+    </form>
   </body>
 </html>
+
+
+

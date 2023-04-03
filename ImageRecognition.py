@@ -17,14 +17,17 @@ mydb = mysql.connector.connect(
 MAX_TIMEOUT = 10  # Maximum time we should wait for a response from the arduino.
 CAM_0_IDX = 0
 CAM_1_IDX = 4
+ack = 0
 
 
 def read_camera(camera_num, result):
     cap = cv2.VideoCapture(camera_num)
     ret,img = cap.read()
     if(ret):
-        text = process_image(img)
+        text, img, img_proc = process_image(img)
         result.append(text)
+        result.append(img)
+        result.append(img_proc)
     cap.release()
 
 # Puts images through the image pipeline, and returns the text if found. None otherwise
@@ -51,14 +54,14 @@ def process_image(img):
 
     # return the better result
     if len(text) == 0 and len(text_rot) == 0:
-        return None
-    elif len(text) > len(text_rot) or text_rot.startswith('0'):
-        return text
+        return (None, img, img_proc)
+    elif len(text) > len(text_rot) or text_rot.startswith('0') or not "FROM" in text_rot or text_rot.startswith('o'):
+        return (text, img, img_proc)
     else:
-        return text_rot
+        return (text_rot, img, img_proc_rot)
 
 # Capture image and then use the OCR library to conver the image to text
-def capture():
+def capture(debug=False, count=0):
     camera1_ret = []
     camera2_ret = []
     camera1_thread = threading.Thread(target=read_camera, args=(CAM_0_IDX, camera1_ret))
@@ -68,10 +71,23 @@ def capture():
     camera1_thread.join()
     camera2_thread.join()
 
-    if len(camera1_ret[0]) > len(camera2_ret[0]):
-        return camera1_ret[0]
-    else:
-        return camera2_ret[0]
+    if(debug):
+        cv2.imwrite(f'debug-output/cam0_img{count}_img.png', camera1_ret[1])
+        cv2.imwrite(f'debug-output/cam0_img{count}_imgproc.png', camera1_ret[2])
+        cv2.imwrite(f'debug-output/cam1_img{count}_img.png', camera2_ret[1])
+        cv2.imwrite(f'debug-output/cam1_img{count}_imgproc.png', camera2_ret[2])
+    try:
+        c1_stripped = camera1_ret[0].replace(' ', '').replace('\n', '')
+        c2_stripped = camera2_ret[0].replace(' ', '').replace('\n', '')
+        if len(c1_stripped) > len(c2_stripped):
+            return camera1_ret[0]
+        else:
+            return camera2_ret[0]
+    except:
+        try:
+            return camera1_ret[0]
+        except:
+            return camera2_ret[0]
 
 
 def parse(data):
@@ -100,6 +116,14 @@ def db_search(query_data):
     Address = query_data["address"]
     Apartment = query_data["apartment"]
 
+    # Define MySQL database connection details
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user="angelos4",
+        password="12345678",
+        database="letter_shredder"
+    )
+
     blacklist_cursor = mydb.cursor()
     cursor = mydb.cursor()
     cursor.execute(f"SELECT `Box#` FROM Residents WHERE Name='{To_Name}' AND Address = '{Address}'")
@@ -107,10 +131,12 @@ def db_search(query_data):
     try:
         box = cursor.fetchall()[0][0]
         print("Query box:", box)
-        blacklist_cursor.execute(f"SELECT 'Box{str(box)}' FROM BlackList WHERE Name='{From_Name}'")
+        blacklist_cursor.execute(f"SELECT Box{str(box)} FROM BlackList WHERE Name='{From_Name}'")
         try:
-            print("Blacklist value: ", cursor.fetchall()[0][0])
-            if (cursor.fetchall()[0][0] == 'N'):
+            is_valid = blacklist_cursor.fetchall()[0][0]
+
+            print("Blacklist value: ", is_valid)
+            if is_valid is 1:
                 return 4
             else:
                 return box
@@ -120,6 +146,7 @@ def db_search(query_data):
     except:
         print("Blacklist query failed or box is empty")
         return 4
+
 
 
 
@@ -171,6 +198,7 @@ while not connected:
 
 print("Connection Established")
 
+imgcount=1
 while signal != "Finish":
     # Check for Ready signal from arduino, indicating mail is ready to be captured.
     print("Waiting for Ready Signal")
@@ -179,19 +207,31 @@ while signal != "Finish":
         if (signal == "Ready"):
             print("Signal: ", signal)
 
-    # Process the Image within the mail capsule
-    data = capture()
-    print(data)
-    query_data = parse(data)
-    print(query_data)
-    if query_data == -1:
-        box = 4
-    else:
-        box = db_search(query_data)
-    print("Box:", box)
+    box = 4
+    iterations = 0
+
+    while box == 4 and iterations < 2:
+        # Process the Image within the mail capsule
+        data = capture(debug=False, count=imgcount)
+        imgcount += 1
+        data.replace("\'", " ")
+        data.replace("\"", " ")
+
+        print(data)
+        query_data = parse(data)
+        print(query_data)
+        if query_data == -1:
+            box = 4
+        else:
+            box = db_search(query_data)
+        print("Box:", box)
+        iterations += 1
+        if (box != 4):
+            break
+
 
     # Send box signal
-    send = bytes(f"Box: {box}\n", 'utf-8')
+    send = bytes(f"Box: {box} Ack: {ack}\n", 'utf-8')
     ser.write(send)
 
     print("Box Number Sent, waiting for response.")
@@ -212,3 +252,4 @@ while signal != "Finish":
         signal = "Finish"
     else:
         signal = "Wait"
+        ack += 1

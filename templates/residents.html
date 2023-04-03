@@ -10,7 +10,8 @@
         <th>Index</th>
         <th>Name</th>
         <th>Address</th>
-        <th>Box #</th>
+        <th>Apartment</th>
+        <th>Box#</th>
       </tr>
       {% for resident in residents %}
       <tr>
@@ -18,6 +19,15 @@
         <td>{{ resident[1] }}</td>
         <td>{{ resident[2] }}</td>
         <td>{{ resident[3] }}</td>
+        <td>{{ resident[4] }}</td>
+        <td>
+          <form action="/remove_resident" method="post"><input type="submit" value="Remove Resident">
+            <input type="hidden" id="remove_name" name="remove_name" value="{{ resident[1] }}">
+            <input type="hidden" id="remove_address" name="remove_address" value="{{ resident[2] }}">
+            <input type="hidden" id="remove_apartment" name="remove_apartment" value="{{ resident[3] }}">
+            <input type="hidden" id="remove_box" name="remove_box" value="{{ resident[4] }}">
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
@@ -27,7 +37,9 @@
       <input type="text" id="name" name="name"><br><br>
       <label for="address">Address:</label>
       <input type="text" id="address" name="address"><br><br>
-      <label for="box">Box #:</label>
+      <label for="apartment">Apartment:</label>
+      <input type="number" id="apartment" name="apartment"><br><br>
+      <label for="box">Box#:</label>
       <input type="number" id="box" name="box"><br><br>
       <input type="submit" value="Add Resident">
     </form>
