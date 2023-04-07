@@ -1,0 +1,4 @@
+TODO:
+    - Add the OCR as a subroutine in the project
+    - Add the Webserver as a subroutine in the project
+    - Create the main runner.
