@@ -49,6 +49,16 @@ Design work on the next PCB has started. We have incorporated the circuit on the
 
 ![New Circuit](sahas_images/image19.png)
 
+## 4/3 - Week 7
+
+This week, we ordered the new PCB. PCB routing is as shown below.
+
+![New PCB Layout](sahas_images/image12.png)
+
+This week, I spent making the OCR system more robust. Using the same image processing pipeline as before, I made the python program that actually runs on the raspberry pi. This includes safely handling cameras and using multiprocessing to process one image, while the program is waiting for the camera lock for the second camera to release. 
+
+Here is the test I designed so I can ensure that letter accuracy is over 80%. I would feed 10 pieces of mail through the slot, taking 2 pictures of each mail. Then, each image is processed and flipped to determine the text orientation. After removing all the images without any text inside, I counted the number of wrong characters in the inference, and kept a count. Out of 313 letters visible in the tests, only 14 were wrong, leading to a character accuracy of about 95.5%.
+
 
 
 
