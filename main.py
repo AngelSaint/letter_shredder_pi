@@ -18,4 +18,7 @@ if __name__ == '__main__':
     p1 = mp.Process(target=func_1, args=(time_begin, 3))
     p2 = mp.Process(target=func_2, args=(time_begin, 2))
     print("main", time.time()-time_begin)
-
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
