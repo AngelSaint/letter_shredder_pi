@@ -69,3 +69,9 @@ ssh angelos4@fe80::aa32:3120:7f5a:35c4%9
 ssh smunamala@raspberrypi.local
 #### Google document for parts and power requirements:
 - https://docs.google.com/spreadsheets/d/1hoyRh6D9tdSWBaHMoY2PIpxR3ODnGfDbjW63Q1PvRAs/edit#gid=0
+
+###Week 12 (04/10/2023):
+#### Create user and grant privileges
+CREATE USER 'smunamala'@'localhost' IDENTIFIED BY 'raspberry';
+GRANT ALL PRIVILEGES ON *.* TO 'smunamala'@'localhost';
+
