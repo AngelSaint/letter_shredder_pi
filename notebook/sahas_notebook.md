@@ -59,6 +59,15 @@ This week, I spent making the OCR system more robust. Using the same image proce
 
 Here is the test I designed so I can ensure that letter accuracy is over 80%. I would feed 10 pieces of mail through the slot, taking 2 pictures of each mail. Then, each image is processed and flipped to determine the text orientation. After removing all the images without any text inside, I counted the number of wrong characters in the inference, and kept a count. Out of 313 letters visible in the tests, only 14 were wrong, leading to a character accuracy of about 95.5%.
 
+## 4/10 - Week 8
+
+It turns out the email that went to the TA with the gerber files never reached its destination. As a result, we have decided to order the PCB ourselves, which should be coming the day of the demo. We are still using the breadboard to test all our embedded code, and the system is too big to mount on the back of the sorter. To make sure all the connections can be made, we are crimping our own set of extension wires. They are not measured, and as a result are too long to wire neatly. It is simply a stopgap before the new PCB comes, and we can get rid of all the extraneous wires.
+
+As progress on the OCR pipeline is blocked without a working database and database connection, no work was done to further OCR this week. 
+
+This week, we also received the design from the machine shop, finally. We are able to crimp wires to sensors, and get them connected to our breadboard. Making sure we can physically make all the connections to every component was the focus of this week. Outside of crimping wires, and soldering, I did not make significant progress on a subsystem this week. 
+
+
 
 
 
