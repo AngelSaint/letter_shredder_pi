@@ -67,6 +67,21 @@ As progress on the OCR pipeline is blocked without a working database and databa
 
 This week, we also received the design from the machine shop, finally. We are able to crimp wires to sensors, and get them connected to our breadboard. Making sure we can physically make all the connections to every component was the focus of this week. Outside of crimping wires, and soldering, I did not make significant progress on a subsystem this week. 
 
+## 4/17 - Week 9
+
+This week was the week of the final demo. Our PCB arrived Monday, and we soldered the components on immediately. Luckily, the programmer worked and everything else was correct on this PCB. 
+
+This week was all about integrating the subsystems. Before the weekend, we made sure that every subsystem was working individually, but we have not had a chance to test everything together.
+
+After the PCB was soldered though, I realized I connected the wrong pins to VCC for the servos, and we would still need the extension wires. As a result, the rats' nest did not leave. 
+
+In the end, we got all the systems working together for the demo, and the OCR was working like a charm. Later in the week, when we were recording our video for extra credit, we noticed the OCR was having a tough time. After examining the images taken by the cameras, it was determined that they were knocked out of skew from the demo, and the cropping region was a little small. Ideally, the cropping would be determined by a convolutional neural network we trained ourselves, but we did not prepare training data and instead resorted to hardcoding the region of interest.
+
+If I were to do this project again, I would focus on the hardware much earlier, as hardware iteration cycles are much longer than software. We were eventually successful in ordering a PCB and using it in our design, but we could have made it much smaller with SMD parts if we had more time.
+
+Another improvement I would make to this project is improving the OCR system. The camera and camera lighting system is inconsistent and as a result, so is the OCR system. Any misalignment of the camera with respect to the light source can drown out the image, and the system detects nothing.
+
+
 
 
 
