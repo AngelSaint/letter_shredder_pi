@@ -9,7 +9,7 @@ MAX_TIMEOUT = 10  # Maximum time we should wait for a response from the arduino.
 
 
 def ImageRecognitionPipeline(mode):
-    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+    ser = serial.Serial('/dev/serial0', 9600, timeout=1)
     ser.reset_input_buffer()
     signal = "Wait"
     connected = False
@@ -23,6 +23,7 @@ def ImageRecognitionPipeline(mode):
         # Check for Estab signal from arduino. Timeout if it takes too long
         while signal != "Estab" and timeout < MAX_TIMEOUT:
             print(f"Waiting for response, attempt : {timeout}")
+            signal = ser.readline().decode('utf-8').rstrip()
             timeout += 1
         if timeout >= MAX_TIMEOUT:
             print("Arduino not responding")
