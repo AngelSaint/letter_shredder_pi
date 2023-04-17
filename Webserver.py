@@ -11,12 +11,6 @@ mydb = mysql.connector.connect(
 )
 
 
-def db_search(name):
-    cursor = mydb.cursor()
-    cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{name}'")
-    return cursor.fetchall()
-
-
 @app.route("/residents")
 def residents():
     cursor = mydb.cursor()
@@ -48,6 +42,7 @@ def show_blacklist():
     # Render the blacklist.html template and pass the results as a parameter
     return render_template('blacklist.html', results=results)
 
-
-def run():
+#
+# def run():
+if __name__ == '__main__':
     app.run(host="0.0.0.0")
