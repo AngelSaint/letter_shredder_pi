@@ -1,9 +1,8 @@
 # Log in to MySQL as root
 sudo mysql -u root << EOF
 
-# Create user and grant privileges
-CREATE USER 'smunamala'@'localhost' IDENTIFIED BY 'raspberry';
-GRANT ALL PRIVILEGES ON *.* TO 'smunamala'@'localhost';
+# Create the letter_shredder database
+CREATE DATABASE letter_shredder;
 
 # Create Residents table
 CREATE TABLE letter_shredder.Residents (
