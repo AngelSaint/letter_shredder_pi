@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import mysql.connector
-
 app = Flask(__name__)
 
 # Define MySQL database connection details
@@ -10,6 +9,12 @@ mydb = mysql.connector.connect(
   password="12345678",
   database="letter_shredder"
 )
+
+
+def db_search(name):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{name}'")
+    return cursor.fetchall()
 
 
 @app.route("/residents")
@@ -44,5 +49,5 @@ def show_blacklist():
     return render_template('blacklist.html', results=results)
 
 
-if __name__ == '__main__':
+def run():
     app.run(host="0.0.0.0")
