@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Search Results</title>
-</head>
-<body>
-    <h1>Search Results for "{{ query }}"</h1>
-    {% if rows %}
-        {% for row in rows %}
-            <p>{{ row[0] }} - {{ row[1] }}</p>
-        {% endfor %}
-    {% else %}
-        <p>No results found.</p>
-    {% endif %}
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Search Page</title>
+  </head>
+  <body>
+    <h1>Search</h1>
+    <form action="/search" method="post">
+      <label for="search_text">Search Text:</label>
+      <input type="text" id="search_text" name="search_text">
+      <button type="submit">Search</button>
+    </form>
+  </body>
 </html>
