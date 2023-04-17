@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Establish a connection to the MariaDB SQL database
 conn = mysql.connector.connect(
-    user="username",
-    password="password",
+    user="angelos4",
+    password="12345678",
     host="localhost",
-    database="mydatabase"
+    database="letter_shredder"
 )
 
 
@@ -17,7 +17,7 @@ conn = mysql.connector.connect(
 @app.route("/")
 def index():
     cur = conn.cursor()
-    cur.execute("SELECT * FROM mytable")
+    cur.execute("SELECT * FROM Residents")
     rows = cur.fetchall()
     return render_template("index.html", rows=rows)
 
@@ -26,7 +26,7 @@ def index():
 @app.route("/home")
 def home():
     cur = conn.cursor()
-    cur.execute("SELECT * FROM mytable WHERE category = 'home'")
+    cur.execute("SELECT * FROM BlackList")
     rows = cur.fetchall()
     return render_template("home.html", rows=rows)
 
@@ -36,7 +36,7 @@ def home():
 def search():
     query = request.args.get("q")
     cur = conn.cursor()
-    cur.execute(f"SELECT * FROM mytable WHERE name LIKE '%{query}%'")
+    cur.execute(f"SELECT * FROM BlackList WHERE Name LIKE '%{query}%'")
     rows = cur.fetchall()
     return render_template("search.html", rows=rows)
 
