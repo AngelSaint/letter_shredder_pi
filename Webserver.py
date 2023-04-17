@@ -21,7 +21,7 @@ def execute_query(query):
 # Define a route to display the search form
 @app.route('/')
 def search_form():
-    return render_template('search.html')
+    return render_template('server/search.html')
 
 # Define a route to handle search requests
 @app.route('/search', methods=['GET', 'POST'])
@@ -47,7 +47,7 @@ def search():
 
     # If the request method is GET, display the search form
     else:
-        return render_template('search.html')
+        return render_template('server/search.html')
 
 
 if __name__ == '__main__':
