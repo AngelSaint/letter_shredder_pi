@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Home Page</h1>
+    {% for row in rows %}
+        <p>{{ row[0] }} - {{ row[1] }}</p>
+    {% endfor %}
+</body>
+</html>
