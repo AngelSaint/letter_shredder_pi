@@ -11,44 +11,29 @@ mydb = mysql.connector.connect(
   database="letter_shredder"
 )
 
-# Define a function to execute SQL queries and return results
-def execute_query(query):
-  cursor = mydb.cursor()
-  cursor.execute(query)
-  result = cursor.fetchall()
-  return result
+# Define a route to show all the entries in the Residents table
+@app.route('/residents')
+def show_residents():
+    # Create a cursor to execute SQL queries
+    mycursor = mydb.cursor()
+    # Execute a query to select all the entries in the Residents table
+    mycursor.execute("SELECT * FROM Residents")
+    # Fetch all the results
+    results = mycursor.fetchall()
+    # Render the residents.html template and pass the results as a parameter
+    return render_template('residents.html', results=results)
 
-# Define a route to display the search form
-@app.route('/')
-def search_form():
-    return render_template('server/search.html')
-
-# Define a route to handle search requests
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    if request.method == 'POST':
-        search_text = request.form['search_text']
-        search_results = []
-
-        # Execute SQL queries to search for the search_text in each table
-        query1 = "SELECT * FROM Residents WHERE Name LIKE '%" + search_text + "%'"
-        query2 = "SELECT * FROM BlackList WHERE Name LIKE '%" + search_text + "%'"
-        result1 = execute_query(query1)
-        result2 = execute_query(query2)
-
-        # Add the search results to the search_results list
-        if result1:
-            search_results.append(('Residents', result1))
-        if result2:
-            search_results.append(('BlackList', result2))
-
-        # Render the search results template
-        return render_template('search_results.html', search_text=search_text, search_results=search_results)
-
-    # If the request method is GET, display the search form
-    else:
-        return render_template('server/search.html')
-
+# Define a route to show all the entries in the BlackList table
+@app.route('/blacklist')
+def show_blacklist():
+    # Create a cursor to execute SQL queries
+    mycursor = mydb.cursor()
+    # Execute a query to select all the entries in the BlackList table
+    mycursor.execute("SELECT * FROM BlackList")
+    # Fetch all the results
+    results = mycursor.fetchall()
+    # Render the blacklist.html template and pass the results as a parameter
+    return render_template('blacklist.html', results=results)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
