@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
     <title>Residents</title>
   </head>
   <body>
@@ -13,14 +12,24 @@
         <th>Address</th>
         <th>Box #</th>
       </tr>
-      {% for row in results %}
+      {% for resident in residents %}
       <tr>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[1] }}</td>
-        <td>{{ row[2] }}</td>
-        <td>{{ row[3] }}</td>
+        <td>{{ resident[0] }}</td>
+        <td>{{ resident[1] }}</td>
+        <td>{{ resident[2] }}</td>
+        <td>{{ resident[3] }}</td>
       </tr>
       {% endfor %}
     </table>
+    <h2>Add Resident</h2>
+    <form action="/add_resident" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address"><br><br>
+      <label for="box">Box #:</label>
+      <input type="number" id="box" name="box"><br><br>
+      <input type="submit" value="Add Resident">
+    </form>
   </body>
 </html>
