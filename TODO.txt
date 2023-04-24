@@ -2,3 +2,11 @@ TODO:
     - Add the OCR as a subroutine in the project
     - Add the Webserver as a subroutine in the project
     - Create the main runner.
+
+Control Flow:
+    - ATmega: Upon Startup, Initialize motors, wait for message from raspberry pi
+    - Rasberry pi: Send message "Begin" to ATmega, wait for "Estab" response.
+    - ATmega: Send "Estab" response, if there is mail, send "Ready"
+    - Rasberry pi: Wait for "Ready" message from ATmega, if message recieved, capture image and send "Box #"
+    - Atmega: Wait for "Box #" message, if recieved, change motors, send IR signal when triggered.
+    - Rasberry pi: Wait for box confirmation from ATmega, if stop on fail, enter finish sequence.

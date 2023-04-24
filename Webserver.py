@@ -42,7 +42,7 @@ def show_blacklist():
     # Render the blacklist.html template and pass the results as a parameter
     return render_template('blacklist.html', results=results)
 
-#
+
 # def run():
 if __name__ == '__main__':
     app.run(host="0.0.0.0")

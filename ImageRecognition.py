@@ -57,19 +57,19 @@ while not connected:
     ser.write(send)
 
     # Check for Estab signal from arduino. Timeout if it takes too long
-    while signal != "Estab\n" and timeout < MAX_TIMEOUT:
+    while signal != "Estab" and timeout < MAX_TIMEOUT:
         print(f"Waiting for response, attempt : {timeout}")
         signal = ser.readline().decode('utf-8').rstrip()
         timeout += 1
     if timeout >= MAX_TIMEOUT:
         print("Arduino not responding")
-        break
+        continue
 
 print("Connection Established")
 
-while signal != "Finish\n":
+while signal != "Finish":
     # Check for Ready signal from arduino, indicating mail is ready to be captured.
-    while signal != "Ready\n":
+    while signal != "Ready":
         signal = ser.readline().decode('utf-8').rstrip()
 
     # Process the Image within the mail capsule
@@ -88,6 +88,6 @@ while signal != "Finish\n":
         signal = ser.readline().decode('utf-8').rstrip()
 
     if int(signal) != box and mode == "Stop on Fail":
-        signal = "Finish\n"
+        signal = "Finish"
     else:
-        signal = "Wait\n"
+        signal = "Wait"
