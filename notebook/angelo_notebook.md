@@ -74,4 +74,15 @@ ssh smunamala@raspberrypi.local
 #### Create user and grant privileges
 CREATE USER 'smunamala'@'localhost' IDENTIFIED BY 'raspberry';
 GRANT ALL PRIVILEGES ON *.* TO 'smunamala'@'localhost';
+###Week 13 (04/17/2023):
+Just code.
+###Week 14 (04/24/2023):
+####Control Flow:
+    - ATmega: Upon Startup, Initialize motors, wait for message from raspberry pi
+    - Rasberry pi: Send message "Begin" to ATmega, wait for "Estab" response.
+    - ATmega: Send "Estab" response, if there is mail, send "Ready"
+    - Rasberry pi: Wait for "Ready" message from ATmega, if message recieved, capture image and send "Box #"
+    - Atmega: Wait for "Box #" message, if recieved, change motors, send IR signal when triggered.
+    - Rasberry pi: Wait for box confirmation from ATmega, if stop on fail, enter finish sequence.
+
 
