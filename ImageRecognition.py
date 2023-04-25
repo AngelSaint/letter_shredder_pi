@@ -35,7 +35,10 @@ def db_search(query_data):
         cursor = mydb.cursor()
         cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{Name}' AND Address = '{Address}'")
         # cursor.execute("SELECT * FROM BlackList")
-        return cursor.fetchall()[0][0]
+        try:
+            return cursor.fetchall()[0][0]
+        except:
+            return 4
     else:
         return 4
 
@@ -95,10 +98,9 @@ while signal != "Finish":
         print(signal)
 
     # Process the Image within the mail capsule
-    # data = capture()
-    # query_data = parse(data)
-    # box = db_search(query_data)
-    box = 1
+    data = capture()
+    query_data = parse(data)
+    box = db_search(query_data)
 
     # Send box signal
     send = bytes(f"Box: {box}\n", 'utf-8')
@@ -112,7 +114,6 @@ while signal != "Finish":
             print(signal)
             ser.write(send)
             signal = "Wait\n"
-
 
     print(signal)
     if parse_mail(signal) != box and mode == "Stop on Fail":
