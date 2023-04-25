@@ -15,7 +15,7 @@ MAX_TIMEOUT = 10  # Maximum time we should wait for a response from the arduino.
 
 def capture():
     # Capture image and then use the OCR library to conver the image to text
-    data = "Angelo Santos\n123 Main Street Apt 2\nChampaign, IL 61820\n"
+    data = "Angelo Santos\n123 Main Street Apt 1\nChampaign, IL 61820\n"
     return data
 
 
@@ -33,8 +33,8 @@ def db_search(query_data):
         Name = query_data["Name"]
         Address = query_data["Address"]
         cursor = mydb.cursor()
-        # cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{Name}' AND Address = '{Address}'")
-        cursor.execute("SELECT * FROM BlackList")
+        cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{Name}' AND Address = '{Address}'")
+        # cursor.execute("SELECT * FROM BlackList")
         return cursor.fetchall()
     else:
         return 4
