@@ -15,12 +15,12 @@ MAX_TIMEOUT = 10  # Maximum time we should wait for a response from the arduino.
 
 def capture():
     # Capture image and then use the OCR library to conver the image to text
-    data = "Sahas Munamala\n1001 Main St. Apt 100\nChampaign, IL 61820\n"
+    data = "Angelo Santos\n123 Main Street Apt 2\nChampaign, IL 61820\n"
     return data
 
 
 def parse(data):
-    output = {"Name" : "", "Address": "", "Local": ""}
+    output = {"Name": "", "Address": "", "Local": ""}
     entries = data.split("\n")
     output["Name"] = entries[0]
     output["Address"] = entries[1]
@@ -46,6 +46,14 @@ def parse_mail(signal):
     return int(strings[1])
 
 
+def test_db():
+    data = capture()
+    output = parse(data)
+    box = db_search(output)
+    print(box)
+    assert box == 1
+
+
 ser = serial.Serial('/dev/serial0', 9600, timeout=1)
 ser.reset_input_buffer()
 signal = "Wait"
@@ -56,6 +64,7 @@ if mode == 1:
 else:
     mode = "Continuous"
 
+test_db()
 
 # Send arduino begin signal indicating that we are ready
 while not connected:
