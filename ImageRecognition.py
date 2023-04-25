@@ -33,7 +33,8 @@ def db_search(query_data):
         Name = query_data["Name"]
         Address = query_data["Address"]
         cursor = mydb.cursor()
-        cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{Name}' AND Address = '{Address}'")
+        # cursor.execute(f"SELECT `Box #` FROM Residents WHERE Name='{Name}' AND Address = '{Address}'")
+        cursor.execute("SELECT * FROM BlackList")
         return cursor.fetchall()
     else:
         return 4
