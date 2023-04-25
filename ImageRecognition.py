@@ -39,6 +39,13 @@ def db_search(query_data):
         return 4
 
 
+def parse_mail(signal):
+    if "Mail: " not in signal:
+        return -1
+    strings = signal.split(" ")
+    return int(strings[1])
+
+
 ser = serial.Serial('/dev/serial0', 9600, timeout=1)
 ser.reset_input_buffer()
 signal = "Wait"
@@ -53,6 +60,7 @@ else:
 # Send arduino begin signal indicating that we are ready
 while not connected:
     timeout = 0
+    print("Made it here")
     send = bytes(f"Begin\n", 'utf-8')
     ser.write(send)
 
@@ -63,7 +71,10 @@ while not connected:
         timeout += 1
     if timeout >= MAX_TIMEOUT:
         print("Arduino not responding")
+        # Send Reset Signal to Arduino
         continue
+    if signal == "Estab":
+        break
 
 print("Connection Established")
 
@@ -71,6 +82,7 @@ while signal != "Finish":
     # Check for Ready signal from arduino, indicating mail is ready to be captured.
     while signal != "Ready":
         signal = ser.readline().decode('utf-8').rstrip()
+        print(signal)
 
     # Process the Image within the mail capsule
     # data = capture()
@@ -86,8 +98,14 @@ while signal != "Finish":
     signal = "Wait\n"
     while signal == "Wait\n":
         signal = ser.readline().decode('utf-8').rstrip()
+        if ("Invalid" in signal):
+            print(signal)
+            ser.write(send)
+            signal = "Wait\n"
 
-    if int(signal) != box and mode == "Stop on Fail":
+
+    print(signal)
+    if parse_mail(signal) != box and mode == "Stop on Fail":
         signal = "Finish"
     else:
         signal = "Wait"
