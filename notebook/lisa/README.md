@@ -97,6 +97,118 @@ Begin researching the programming of the ATmega328. Become familiar the testing 
 
 Complete a sample program that handles the control logic between the different light sensors and simultaneously changes the PWM frequencies of the different motors based on the control signal given by the raspberry pi.
 
+```
+#Sample motor control
+#include <Servo.h>
+#define LL_PIN 3
+#define RL_PIN 5
+#define M_PIN 6
+#define L_PIN 10
+#define R_PIN 9
+
+#define LL_CLOSED 100
+#define LL_OPEN 160
+#define RL_CLOSED 90
+#define RL_OPEN 20
+
+#define L_45 55
+#define L_135 110
+#define R_45 55
+#define R_135 100
+#define M_45 45
+#define M_135 135
+
+Servo left_latch;
+Servo right_latch;
+Servo middle;
+Servo left;
+Servo right;
+
+
+void setup() {
+
+  left_latch.attach(LL_PIN);
+  right_latch.attach(RL_PIN);
+  middle.attach(M_PIN);
+  left.attach(L_PIN);
+  right.attach(R_PIN);
+
+}
+
+void reset(){
+  left_latch.write(LL_CLOSED);
+  right_latch.write(RL_CLOSED);
+  delay(1000);
+  middle.write(180);
+  left.write(90);
+  right.write(90);
+  
+  delay(5000);
+
+}
+
+void mailbox1(){
+  left.write(L_135);
+  middle.write(M_135);
+  delay(500);
+  left_latch.write(LL_OPEN);
+  right_latch.write(RL_OPEN);
+
+  delay(5000);
+}
+
+void mailbox2(){
+  left.write(L_45);
+  middle.write(M_135);
+  delay(500);
+  left_latch.write(LL_OPEN);
+  right_latch.write(RL_OPEN);
+
+  delay(5000);
+}
+
+void mailbox3(){
+  right.write(R_135);
+  middle.write(M_45);
+  delay(500);
+  left_latch.write(LL_OPEN);
+  right_latch.write(RL_OPEN);
+
+  delay(5000);
+}
+
+void mailbox4(){
+  right.write(R_45);
+  middle.write(M_45);
+  delay(500);
+  left_latch.write(LL_OPEN);
+  right_latch.write(RL_OPEN);
+
+  delay(5000);
+}
+
+void loop() {
+
+  reset();
+
+  mailbox1();
+
+  reset();
+
+  mailbox2();
+
+  reset();
+
+  mailbox3();
+
+  reset();
+
+  mailbox4();
+
+
+}
+```
+
 # Week 12 (4/3):
 Work on getting the Rasberry pi and ATmega on one breadboard together along with test motors and sensors. At this time, given a signal to where the mail should arrive, the different PWM signals of the ATmega should give the correct output to the different motors. The following control flow must be demonstrated at this time: Camera captures text, text is processed and parsed, fixed memory contains the user details of the mail being simulated, pwm signals are generated at the right frequencies, IR outputs are also read and raspberry pi is brought back to the image capturing state.
 
