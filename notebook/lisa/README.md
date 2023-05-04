@@ -291,7 +291,7 @@ String box_num = Serial.readStringUntil('\n');
 Place all the items in their appropriate postions on the final PCB and test for any errors within the mechanical design. Tune any parameters for change.
 Finalized code for Motor control and took into account laser sensors. Fine tuned angles for the motors to easily move mail through sorter. Made sure motors waited for mail to go past mailbox sensor before resetting and allows Pi to read new mail. 
 
-Spent hours in the lab crimping wires and connecting pins to new PCB. 
+Spent hours in the lab crimping wires and connecting pins to new PCB. **Image 6** and **Image 7** shows the final wiring for motors and lasers in the PCB.
 
 Final Motor Control Code:
 
