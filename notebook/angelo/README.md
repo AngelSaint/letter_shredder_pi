@@ -23,12 +23,12 @@ https://docs.google.com/document/d/1smCmXfJ1Qmnph_uVqpIzglHZJDQTCBmRfOryvHxqazc/
 
 ###Week 3 (02/06/2023):
 ####Created this sketch image of the mail sorter design through google docs:
-![Mail sorter sketch](img/mail_sorter_sketch.png "Mail sorter Sketch")
+![Mail sorter sketch](../img/mail_sorter_sketch.png "Mail sorter Sketch")
 
 ###Week 4 (02/13/2023):
 ####Created the detailed mail sorter design through AutoCad2023:
 
-![Mail sorter design](img/mail_sorter_design.png "Mail sorter Design")
+![Mail sorter design](../img/mail_sorter_design.png "Mail sorter Design")
 
 ###Week 5 (02/20/2023):
 
@@ -42,7 +42,7 @@ https://docs.google.com/document/d/1smCmXfJ1Qmnph_uVqpIzglHZJDQTCBmRfOryvHxqazc/
 
 ###Week 7 (03/06/2023):
 ####Created the latest block diagram through lucidchart:
-![Block Diagram](img/block_diagram.png "Block Diagram")
+![Block Diagram](../img/block_diagram.png "Block Diagram")
 - https://lucid.app/lucidchart/a511f2d9-8f74-499c-aa87-c0099e6e537f/edit?page=0_0&invitationId=inv_d18fd97f-6218-4dc4-afc7-b95135b04948#
 
 ###Week 8 (03/13/2023):
@@ -54,7 +54,7 @@ SPRING BREAK
 
 ###Week 10 (03/27/2023):
 ####Created the control flow diagram through lucidchart for the progress report:
-![Control Diagram](img/control_diagram.png "Control Diagram")
+![Control Diagram](../img/control_diagram.png "Control Diagram")
 - https://lucid.app/lucidchart/d592b711-b974-4ff1-8c5a-040fdf2df1a1/edit?invitationId=inv_1680db4e-4e03-4881-908e-7fee324f8770&page=0_0#
 
 ###Week 11 (04/03/2023):
